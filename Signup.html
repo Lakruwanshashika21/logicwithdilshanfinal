@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Logic With Dilshan</title>
+  <link rel="icon" href="image/logic logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+  
+
+</head>
+<body>
+    <div id="title">
+        <img src="image/logic logo.png" alt="Logo" width="50px" height="50px">
+        <h1>Logic with Dilshan Uthpala</h1>
+    </div>
+    <div class="signup">
+        <div>
+            <h2 class="content">Student Sign Up</h2>
+            <form id="signupForm" action="register.php" method="post">
+                <input type="text" name="name" placeholder="Full Name" required><br>
+                <input type="email" name="email" placeholder="Email" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <input type="password" name="repassword" placeholder="Re-enter Password" required><br>
+                <p id="out" style="color: red;"></p>
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select><br>
+                <input type="text" name="address" placeholder="Address" required><br>
+                <input type="text" name="number" placeholder="Phone Number" required><br>
+                <input type="number" name="admission_year" placeholder="A/L Year" required><br>
+                
+                <label for="physical">Physically Attending?</label>
+                <select name="physical" id="physical">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select><br>
+
+                <div id="classContainer" style="display: none;">
+                    <label for="classIfYes">Select Class (if attending physically)</label>
+                    <select name="class" id="classIfYes">
+                        <option value="">-- Select Class --</option>
+                        <option value="Winds-2027 Theory">Winds-2027 Theory</option>
+                        <option value="Winds-2026 Theory">Winds-2026 Theory</option>
+                        <option value="Winds-2025 Theory">Winds-2025 Theory</option>
+                        <option value="Winds-2025 Revision">Winds-2025 Revision</option>
+                    </select><br>
+                </div>
+                <br>
+                <button type="submit" class="signup-button">Sign Up</button>
+            </form>
+            <p>If you are already signed up, then <a href="login.html">Sign In</a></p>
+            <p id="signupError" style="color:red;"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Logic with Dilshan. All rights reserved.</p>
+        <p>Author: Shashika Piyumal</p>
+        <ul>
+            <li><a href="tel:+94771080809"><img src="image/speech_3869725.png" alt="Call" width="30px" height="30px"></a></li>
+            <li><a href="https://wa.me/+94771080809"><img src="image/whatsapp_12635043.png" alt="WhatsApp" width="30px" height="30px"></a></li>
+            <li><a href="https://www.facebook.com/shashika.piyumal.18"><img src="image/communication_15047435.png" alt="Facebook"  width="30px" height="30px"></a></li>
+            <li><a href="mailto:lakruwanshashika21@gmail.com"><img src="image/email_5508700.png" alt="Email" width="30px" height="30px"></a></li>
+            <li><a href="https://github.com/Lakruwanshashika21"><img src="image/github_1051326.png" alt="GitHub" width="30px" height="30px"></a></li>
+            <li><a href="https://www.linkedin.com/in/lakruwan-shashika-541661258"><img src="image/linkedin_1377213.png" alt="LinkedIn" width="30px" height="30px"></a></li>
+        </ul>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+  document.getElementById("physical").addEventListener("change", function () {
+    const classContainer = document.getElementById("classContainer");
+    if (this.value === "Yes") {
+      classContainer.style.display = "block";
+    } else {
+      classContainer.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>
