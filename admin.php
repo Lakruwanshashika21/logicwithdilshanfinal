@@ -1,4 +1,7 @@
 <?php
+
+ob_start(); // Start output buffering
+
 session_start();
 include 'config.php';
 
@@ -68,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <!-- Guest buttons -->
       <div id="authButtons" style="display: block;">
-        <button class="signup-button"><a href="login.html">Login</a></button>
-        <button class="signup-button"><a href="Signup.html">Sign Up</a></button>
+        <button class="signup-button" ><a href="login.html">Login</a></button>
+        <!-- <button class="signup-button"><a href="Signup.html">Sign Up</a></button> -->
       </div>
 
       <!-- User profile (hidden by default) -->
@@ -86,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($error): ?>
         <p style="color:red;"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
-    <form method="POST">
+    <form method="POST" style="margin-top: 20px;">
         <input type="text" name="username" placeholder="Username" required><br><br>
         <input type="password" name="password" placeholder="Password" required><br><br>
         <button type="submit" class="signup-button">Login</button>
@@ -108,5 +111,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="https://www.linkedin.com/in/lakruwan-shashika-541661258"><img src="image/linkedin_1377213.png" alt="LinkedIn" width="30px" height="30px"></a></li>
         </ul>
     </footer>
+
+     <script>
+   
+
+   
+
+    // Check session and toggle login/profile
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("session_data.php")
+        .then(res => res.json())
+        .then(data => {
+          if (data.logged_in) {
+            document.getElementById("authButtons").style.display = "none";
+            document.getElementById("userProfile").style.display = "inline-block";
+            document.getElementById("welcomeText").innerText = `👋 Hello, ${data.name}`;
+          }
+        })
+        .catch(error => console.error("Session check failed:", error));
+    });
+
+     function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+  </script>
 </body>
+<?php ob_end_flush(); ?>
+
 </html>

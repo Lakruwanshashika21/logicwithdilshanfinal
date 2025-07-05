@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Asia/Colombo');
+
 session_start();
 include 'config.php';
 
@@ -35,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'lakruwanshashika22@gmail.com';   // your Gmail
-                $mail->Password   = 'yjcm qlqk wncl rscn';         // your Gmail App Password
+                $mail->Username   = 'dilshanuthpalalogic@gmail.com';   // your Gmail
+                $mail->Password   = 'tebp klcm gexh jhuy';         // your Gmail App Password
                 $mail->SMTPSecure = 'tls';
                 $mail->Port       = 587;
 
-                $mail->setFrom('lakruwanshashika22@gmail.com', 'Logic Site');
+                $mail->setFrom('dilshanuthpalalogic@gmail.com', 'Logic With Dilshan Uthpala');
                 $mail->addAddress($user_email);
 
                 $mail->isHTML(true);

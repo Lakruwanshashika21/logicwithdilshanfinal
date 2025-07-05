@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
@@ -23,12 +24,15 @@ if (!isset($_SESSION["user_id"])) {
 
   <div class="signup">
 
-      <div class="note" >
+      <div class="note" style="margin-top: 100px;">
         <h1 style="text-align: center;color: black">Welcome, <?php echo htmlspecialchars($_SESSION["user_name"]); ?> 👋</h1>
-        <p style="text-align: center;color: black">Email: <?php echo htmlspecialchars($_SESSION["user_email"]); ?></p>
+        <p style="text-align: center;color: black"><?php echo htmlspecialchars($_SESSION["user_email"]); ?></p><br><br>
         <h3 style="text-align: center;color: black">What would you like to do?</h3>
         <button><a href="profile.php">Update Your Profile</a></button><br>
-        <button><a href="documents.php">Request NoteAccess</a></button><br>
+        <form action="request_note_access.php" method="post">
+       <button type="submit">Request NoteAccess</button>
+        </form>
+
         <button><a href="logout.php">Logout</a></button><br>
         <button><a href="index.php">Go Back</a></button><br>
     </div>
@@ -47,4 +51,5 @@ if (!isset($_SESSION["user_id"])) {
     </ul>
   </footer>
 </body>
+<?php ob_end_flush(); ?>
 </html>

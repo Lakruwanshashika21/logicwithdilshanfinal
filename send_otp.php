@@ -30,17 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'lakruwanshashika22@gmail.com';  // your Gmail
-            $mail->Password   = 'yjcm qlqk wncl rscn';    // your App Password
+            $mail->Username   = 'dilshanuthpalalogic@gmail.com';  // your Gmail
+            $mail->Password   = 'tebp klcm gexh jhuy';    // your App Password
             $mail->SMTPSecure = 'tls';
             $mail->Port       = 587;
 
-            $mail->setFrom('lakruwanshashika22@gmail.com', 'Logic With Dilshan');
+            $mail->setFrom('dilshanuthpalalogic@gmail.com', 'Logic With Dilshan Uthpala');
             $mail->addAddress($email);
 
             $mail->isHTML(true);
             $mail->Subject = 'OTP for Password Reset';
-            $mail->Body    = "Your OTP is: <b>$otp</b>";
+            $mail->Body    = "Your OTP is: <b>$otp</b> <br>Do not share this OTP with anyone.";
             $mail->AltBody = "Your OTP is: $otp";
 
             $mail->send();

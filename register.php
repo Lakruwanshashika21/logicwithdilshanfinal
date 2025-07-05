@@ -12,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $number   = trim($_POST["number"] ?? '');
     $year     = $_POST["admission_year"] ?? '';
     $physical = $_POST["physical"] ?? 'No';
-    $class    = $_POST["class"] ?? '';
+    $class    = !empty($_POST["class"]) ? $_POST["class"] : null;  // Make class optional
 
-    // Validate required fields
-    if (empty($name) || empty($email) || empty($password) || empty($gender) || empty($repass) || empty($address) || empty($number) || empty($year) || empty($physical) || empty($class)) {
-        echo "Please fill all required fields.";
+    // Validate required fields (excluding class)
+    if (empty($name) || empty($email) || empty($password) || empty($gender) || empty($repass) || empty($address) || empty($number) || empty($year) || empty($physical)) {
+        echo "Please fill all required fields (except class).";
         exit;
     }
 
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["user_id"] = $stmt->insert_id;
         $_SESSION["user_name"] = $name;
 
-        // Redirect to protected page or dashboard
+        // Redirect to dashboard
         header("Location: dashboard.php");
         exit;
     } else {

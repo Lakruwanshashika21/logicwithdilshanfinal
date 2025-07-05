@@ -1,4 +1,7 @@
 <?php
+ob_start(); // Start output buffering
+
+
 session_start();
 include 'config.php';
 
@@ -98,4 +101,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
 
 </body>
+<?php ob_end_flush(); ?>
 </html>
