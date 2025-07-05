@@ -66,12 +66,15 @@
 
   <div id="AboutUs" class="content">
     <h4>About Us</h4>
-    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+    <p style="text-align: center;"><b><i>Logic with Dilshan Uthpala,</i></b> We believe that logic is not just another subject but a way of thinking, questioning and discovering the world around us that goes beyond that. </p>
+    <p style="text-align: center;">Created by a passionate, logical, young law student, this logic platform will help students build a sharper mind, strengthen their reasoning and practice logical thinking.</p>
   </div><hr>
 
   <div id="Mission" class="content">
     <h4>Our Mission</h4>
-    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+    <p style="text-align: center;">Our goal is to simplify the subject of logic, which is considered complex in society, and present it to the student in a fun, intuitive and understandable way.</p>
+    <p style="text-align: center;">Our mission is to teach the logic section as well as the scientific method section correctly with equal emphasis.</p>
+    <p style="text-align: center;">For this purpose, instead of teaching a mere subject, we will work to instill a rational mindset in the student.</p>
   </div><hr>
 
  <div id="TimeTable" class="content">
@@ -148,7 +151,10 @@
       <li><a href="mailto:dilshanuthpalalogic@gmail.com"><img class="rotate-hover" src="image/envelope_9073062.png" alt="Email"></a></li>
     </ul>
   </div><hr>
-
+  <div>
+    <center><img  style="width: 300px; height: auto;" src="image/KDL4.png" alt="QR Code"></center>
+  </div>
+    <hr>
     <div id="map">
         <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.741969789723!2d80.05319207566744!3d7.155802897080286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2fdd2280dcafb%3A0xfc5301c6a333a004!2sWins!5e0!3m2!1sen!2slk!4v1751099717173!5m2!1sen!2slk" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1979.423317260154!2d80.09445157404214!3d7.143726748241609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2fdaa6b4a3149%3A0xdba57acfbadd31ad!2sNittambuwa%20Colour%20Light%20Junction!5e0!3m2!1sen!2slk!4v1751100024715!5m2!1sen!2slk" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
