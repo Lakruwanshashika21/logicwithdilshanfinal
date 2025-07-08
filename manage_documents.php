@@ -21,6 +21,31 @@ if (isset($_GET['logout'])) {
     <title>Document Manager</title>
     <link rel="icon" href="image/logic logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css" />
+
+    <script>
+    function updateSubfolders() {
+        const folder = document.getElementById('class_folder').value;
+        const subSelect = document.getElementById('sub_folder');
+        subSelect.innerHTML = '<option value="">Loading...</option>';
+
+        fetch('get_subfolders.php?folder=' + encodeURIComponent(folder))
+            .then(res => res.json())
+            .then(data => {
+                subSelect.innerHTML = '<option value="">-- Select Subfolder --</option>';
+                data.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub;
+                    option.text = sub;
+                    subSelect.appendChild(option);
+                });
+            })
+            .catch(err => {
+                subSelect.innerHTML = '<option value="">Failed to load</option>';
+                console.error("Subfolder load failed:", err);
+            });
+    }
+    </script>
+
 </head>
 <body>
 <div id="title">
@@ -33,7 +58,7 @@ if (isset($_GET['logout'])) {
     <button class="signup-button"><a href="admin_panel.php">Admin Panel</a></button>
     <button class="signup-button"><a href="?logout=1">Logout</a></button><br><br>
 
-    <h3>📄 Upload Class Document</h3>
+    <br><h3>📄 Upload Class Document</h3>
     <form action="upload_document.php" method="post" enctype="multipart/form-data">
         <label>Class Folder:</label><br>
         <select name="class_folder" required>

@@ -20,7 +20,7 @@
 
   <div id="title" class="background-box">
     <div class="typewriter-multi">
-    <h1><span id="typed-text"></span><span class="cursor">|</span></h1>
+    <h1><span id="typed-text"></span><span class="cursor"></span></h1>
   </div>
   </div>
 
@@ -147,7 +147,7 @@
       <li><a href="tel:+94770224060"><img class="rotate-hover" src="image/speech_3869725.png" alt="Call"></a></li>
       <li><a href="https://wa.me/+94770224060"><img class="rotate-hover" src="image/whatsapp_15015928.png" alt="WhatsApp"></a></li>
       <li><a href="https://www.facebook.com/profile.php?id=100094065144515"><img class="rotate-hover" src="image/facebook_13170340.png" alt="Facebook"></a></li>
-      <li><a href="#"><img class="rotate-hover" src="image/social_10090309.png" alt="YouTube"></a></li>
+      <li><a href="https://youtube.com/@dilshanuthpala?si=woe0Beya0iPu3hUr"><img class="rotate-hover" src="image/social_10090309.png" alt="YouTube"></a></li>
       <li><a href="mailto:dilshanuthpalalogic@gmail.com"><img class="rotate-hover" src="image/envelope_9073062.png" alt="Email"></a></li>
     </ul>
   </div><hr>

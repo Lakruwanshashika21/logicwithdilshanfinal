@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $subject = "Note Access Updated";
             $message = "You have been granted access to: $document_name";
-            $headers = "From: lakruwanshashika22@gmail.com";
+            $headers = "From: dilshanuthpalalogic@gmail.com";
 
             mail($email, $subject, $message, $headers);
 

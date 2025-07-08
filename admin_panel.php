@@ -52,8 +52,10 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
     <?php else: ?>
         <p>You are a regular admin.</p>
     <?php endif; ?>
+        <br><hr><br>
+    <h2>Pending Note Access Requests</h2><br>
 
-    <h2>Pending Note Access Requests</h2>
+    <div style="display: flex; justify-content: center;">
     <table border="1" cellpadding="10">
         <tr>
             <th>Name</th>
@@ -77,8 +79,8 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
             </tr>
         <?php } ?>
     </table>
-
-    <h3>Grant Document Access</h3>
+    </div><br><hr><br>
+    <h3>Grant Document Access</h3><br>
     <form action="update_access.php" method="post">
         <label>Email:</label><br>
         <input type="email" name="email" required><br><br>
@@ -87,36 +89,50 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
         <input type="text" name="document_name" required><br><br>
 
         <label><input type="checkbox" name="access_notes" value="1" > Grant Access</label><br>
-        <label><input type="checkbox" name="remove_access" value="1"> Remove Access</label><br><br>
 
         <button type="submit" class="signup-button">Update Access</button>
-    </form>
+    </form><br><hr><br>
 
-    <h3>Current Access Permissions</h3>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>Email</th>
-            <th>Document</th>
-            <th>Access Notes</th>
-        </tr>
-        <?php
-        $res = $conn->query("SELECT * FROM document_access");
-        while ($row = $res->fetch_assoc()) {
-            echo "<tr>
-                <td>" . htmlspecialchars($row['email']) . "</td>
-                <td>" . htmlspecialchars($row['document_name']) . "</td>
-                <td>" . ($row['access_notes'] ? '✅ Yes' : '❌ No') . "</td>
-            </tr>";
-        }
-        ?>
-    </table>
+    <h3 style="text-align: center;">Current Access Permissions</h3><br>
+<div style="display: flex; justify-content: center;">
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Email</th>
+        <th>Document</th>
+        <th>Access Notes</th>
+        <th>Action</th>
+    </tr>
+    <?php
+    $res = $conn->query("SELECT * FROM document_access");
+    while ($row = $res->fetch_assoc()) {
+        echo "<tr>
+            <td>" . htmlspecialchars($row['email']) . "</td>
+            <td>" . htmlspecialchars($row['document_name']) . "</td>
+            <td>" . ($row['access_notes'] ? '✅ Yes' : '❌ No') . "</td>
+            <td>
+                <form action='update_access.php' method='post' onsubmit='return confirm(\"Remove this access?\")' style='display:inline;'>
+                    <input type='hidden' name='email' value='" . htmlspecialchars($row['email'], ENT_QUOTES) . "'>
+                    <input type='hidden' name='document_name' value='" . htmlspecialchars($row['document_name'], ENT_QUOTES) . "'>
+                    <input type='hidden' name='remove_access' value='1'>
+                    <button type='submit' style='color:red;'>🗑 Delete</button>
+                </form>
+            </td>
+        </tr>";
+    }
+    ?>
+</table>
+</div><br><hr><br>
 
     <h3>Upload Class Document</h3>
-    <form action="upload_document.php" method="post" enctype="multipart/form-data">
+    <form id="uploadForm">
         <label>Class Folder:</label><br>
-        <select name="class_folder" required>
+        <select name="class_folder" id="class_folder" required onchange="updateSubfolders()">
             <option value="">-- Select Class --</option>
             <?php
+            $base_dir = "files";
+            $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
+                return $item !== '.' && $item !== '..' && is_dir("$base_dir/$item");
+            });
             foreach ($classes as $class) {
                 echo "<option value=\"" . htmlspecialchars($class) . "\">$class</option>";
             }
@@ -124,14 +140,8 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
         </select><br><br>
 
         <label>Subfolder:</label><br>
-        <select name="sub_folder" required>
+        <select name="sub_folder" id="sub_folder" required>
             <option value="">-- Select Subfolder --</option>
-            <option value="Answers">Answers</option>
-            <option value="MIT">MIT</option>
-            <option value="Model paper">Model paper</option>
-            <option value="Past paper">Past paper</option>
-            <option value="School Paper">School Paper</option>
-            <option value="Tute">Tute</option>
         </select><br><br>
 
         <label>Select File:</label><br>
@@ -140,47 +150,55 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
         <button type="submit" class="signup-button">Upload Document</button>
     </form>
 
-    <h3>Uploaded Documents</h3>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>Class</th>
-            <th>Subfolder</th>
-            <th>Filename</th>
-            <th>Action</th>
-        </tr>
-        <?php
-        $subfolders = ['Answers', 'MIT', 'Model paper', 'Past paper', 'School Paper', 'Tute'];
-        foreach ($classes as $class) {
-            foreach ($subfolders as $sub) {
-                $folder_path = "$base_dir/$class/$sub";
-                if (is_dir($folder_path)) {
-                    $files = array_diff(scandir($folder_path), ['.', '..']);
-                    foreach ($files as $file) {
-                        $file_url = "$folder_path/$file";
-                        echo "<tr>
-                            <td>$class</td>
-                            <td>$sub</td>
-                            <td>$file</td>
-                            <td>
-                                <a href='$file_url' target='_blank'>View</a> |
-                                <form action='delete_file.php' method='post' style='display:inline;' onsubmit='return confirm(\"Delete this file?\")'>
-                                    <input type='hidden' name='file_path' value='" . htmlspecialchars($file_url, ENT_QUOTES) . "'>
-                                    <button type='submit' style='color:red;'>🗑 Delete</button>
-                                </form>
-                            </td>
-                        </tr>";
-                    }
-                }
+    <div id="uploadResult" style="text-align:center; color:green; font-weight:bold; padding-top:10px;"></div>
+
+   <h3>Uploaded Documents</h3><br>
+<div style="display: flex; justify-content: center;">
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Class</th>
+        <th>Subfolder</th>
+        <th>Filename</th>
+        <th>Action</th>
+    </tr>
+    <?php
+    foreach ($classes as $class) {
+        $class_path = "$base_dir/$class";
+        $subfolders = array_filter(scandir($class_path), function ($item) use ($class_path) {
+            return $item !== '.' && $item !== '..' && is_dir("$class_path/$item");
+        });
+
+        foreach ($subfolders as $sub) {
+            $folder_path = "$class_path/$sub";
+            $files = array_diff(scandir($folder_path), ['.', '..']);
+            foreach ($files as $file) {
+                $file_url = "$folder_path/$file";
+                echo "<tr>
+                    <td>" . htmlspecialchars($class) . "</td>
+                    <td>" . htmlspecialchars($sub) . "</td>
+                    <td>" . htmlspecialchars($file) . "</td>
+                    <td>
+                        <a href='$file_url' target='_blank'>View</a> |
+                        <form action='delete_file.php' method='post' style='display:inline;' onsubmit='return confirm(\"Delete this file?\")'>
+                            <input type='hidden' name='file_path' value='" . htmlspecialchars($file_url, ENT_QUOTES) . "'>
+                            <button type='submit' style='color:red;'>🗑 Delete</button>
+                        </form>
+                    </td>
+                </tr>";
             }
         }
-        ?>
-    </table>
+    }
+    ?>
+</table>
+</div>
+ <br><hr>
 
     <?php if (isset($_GET['deleted'])): ?>
-    <p style="color:green;">✅ File deleted successfully!</p>
+    <p style="color:green; text-align:center;">✅ File deleted successfully!</p>
     <?php endif; ?>
 
-    <h3>Remove Student Accounts</h3>
+   <br> <h3>Remove Student Accounts</h3><br>
+   <div style="display: flex; justify-content: center;">
     <table border="1" cellpadding="8">
         <tr>
             <th>Name</th><th>Email</th><th>Action</th>
@@ -201,35 +219,65 @@ $classes = array_filter(scandir($base_dir), function ($item) use ($base_dir) {
         }
         ?>
     </table>
+    </div>
 </div>
 
 <footer>
     <p>&copy; 2023 Logic with Dilshan. All rights reserved.</p>
     <p>Author: Shashika Piyumal</p>
-    <ul>
-        <li><a href="tel:+94771080809"><img src="image/speech_3869725.png" alt="Call" width="30px" height="30px"></a></li>
-        <li><a href="https://wa.me/+94771080809"><img src="image/whatsapp_12635043.png" alt="WhatsApp" width="30px" height="30px"></a></li>
-        <li><a href="https://www.facebook.com/shashika.piyumal.18"><img src="image/communication_15047435.png" alt="Facebook"  width="30px" height="30px"></a></li>
-        <li><a href="mailto:lakruwanshashika21@gmail.com"><img src="image/email_5508700.png" alt="Email" width="30px" height="30px"></a></li>
-        <li><a href="https://github.com/Lakruwanshashika21"><img src="image/github_1051326.png" alt="GitHub" width="30px" height="30px"></a></li>
-        <li><a href="https://www.linkedin.com/in/lakruwan-shashika-541661258"><img src="image/linkedin_1377213.png" alt="LinkedIn" width="30px" height="30px"></a></li>
-    </ul>
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const grantCheckbox = document.querySelector('input[name="access_notes"]');
-    const removeCheckbox = document.querySelector('input[name="remove_access"]');
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
 
-    grantCheckbox.addEventListener('change', function () {
-        if (this.checked) removeCheckbox.checked = false;
-    });
-
-    removeCheckbox.addEventListener('change', function () {
-        if (this.checked) grantCheckbox.checked = false;
+    fetch('upload_document.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById('uploadResult').innerText = '✅ File uploaded successfully';
+        form.reset();
+    })
+    .catch(err => {
+        document.getElementById('uploadResult').innerText = '❌ Upload failed';
     });
 });
 </script>
-</body>
+
+<script>
+function updateSubfolders() {
+    const classSelect = document.getElementById('class_folder');
+    const subFolderSelect = document.getElementById('sub_folder');
+    const selectedClass = classSelect.value;
+
+    subFolderSelect.innerHTML = '<option value="">Loading...</option>';
+
+    if (selectedClass !== '') {
+        fetch(`get_subfolders.php?class=${encodeURIComponent(selectedClass)}`)
+            .then(response => response.json())
+            .then(data => {
+                subFolderSelect.innerHTML = '<option value="">-- Select Subfolder --</option>';
+                data.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub;
+                    option.textContent = sub;
+                    subFolderSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching subfolders:', error);
+                subFolderSelect.innerHTML = '<option value="">-- Error loading --</option>';
+            });
+    } else {
+        subFolderSelect.innerHTML = '<option value="">-- Select Subfolder --</option>';
+    }
+}
+</script>
+
 <?php ob_end_flush(); ?>
+</body>
 </html>

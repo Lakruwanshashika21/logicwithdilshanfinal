@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include 'config.php';
 
@@ -59,35 +60,40 @@ while ($row = $result->fetch_assoc()) {
     </nav>
   </div>
 
-<div class="note">
-    <?php if (in_array("2025 Theory", $accessList)): ?>
+<div class="note" style="margin-top: 200px;">
+    <?php if (in_array("25T", $accessList) || in_array("25t", $accessList)): ?>
         <button><a href="25t.html">2025 Theory</a></button><br>
     <?php endif; ?>
 
-    <?php if (in_array("2026 Theory", $accessList)): ?>
+    <?php if (in_array("26T", $accessList) || in_array("26t", $accessList)): ?>
         <button><a href="26t.html">2026 Theory</a></button><br>
     <?php endif; ?>
 
-    <?php if (in_array("2027 Theory", $accessList)): ?>
+    <?php if (in_array("27T", $accessList) || in_array("27t", $accessList)): ?>
         <button><a href="27t.html">2027 Theory</a></button><br>
     <?php endif; ?>
 
-    <?php if (in_array("2025 Revision", $accessList)): ?>
+    <?php if (in_array("25R", $accessList) || in_array("25r", $accessList)): ?>
         <button><a href="25r.html">2025 Revision</a></button><br>
     <?php endif; ?>
 
-    <?php if (in_array("2026 Revision", $accessList)): ?>
+    <?php if (in_array("26R", $accessList) || in_array("26r", $accessList)): ?>
         <button><a href="26r.html">2026 Revision</a></button><br>
     <?php endif; ?>
 
-    <?php if (in_array("2027 Revision", $accessList)): ?>
+    <?php if (in_array("27R", $accessList) || in_array("27r", $accessList)): ?>
         <button><a href="27r.html">2027 Revision</a></button><br>
     <?php endif; ?>
 
+
     <?php if (empty($accessList)): ?>
-        <h2 style="color:red; margin-top: 20px; margin-bottom: 20px; " >⚠️ You do not have access to any class notes.</h2>
+        <h2 style="color:red; margin-top: 20px; margin-bottom: 20px;">⚠️ You do not have access to any class notes.</h2>
     <?php endif; ?>
+
+    <button><a href="answer.php">Lesson Answers</a></button><br>
+
 </div>
+
 
  <footer>
         <p>&copy; 2023 Logic with Dilshan. All rights reserved.</p>
@@ -137,4 +143,5 @@ while ($row = $result->fetch_assoc()) {
   </script>
 
 </body>
+<?php ob_end_flush(); ?>
 </html>

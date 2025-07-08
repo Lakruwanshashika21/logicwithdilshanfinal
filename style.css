@@ -10,7 +10,7 @@ html, body {
   scroll-behavior: smooth;
   overflow-x: hidden;
   max-width: 100%;
-  padding-top: 235px; /* Needed for fixed #title + #menubar */
+  padding-top: 10px; /* Needed for fixed #title + #menubar */
 }
 
 /*==================== Header ====================*/
@@ -25,7 +25,7 @@ html, body {
   left: 0;
   right: 0;
   width: 100%;
-  transition: top 0.3s;
+  /* transition: top 0.3s; */
   z-index: 1000;
 }
 
@@ -53,7 +53,7 @@ html, body {
   right: 0;
   background: #004488;
   width: 100%;
-  transition: top 0.3s;
+  /* transition: top 0.3s; */
   z-index: 1001;
   height: 60px;
 }
@@ -364,7 +364,6 @@ img {
   overflow: hidden;
   margin: 0 auto;
   transition: margin-top 0.3s ease;
-
 }
 
 .text {
